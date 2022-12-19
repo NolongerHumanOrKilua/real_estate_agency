@@ -42,7 +42,7 @@ class Flat(models.Model):
         blank=True,
         db_index=True)
 
-    likes = models.ManyToManyField(User, verbose_name="Кто лайкнул")
+    likes = models.ManyToManyField(User, related_name= "liked_by", verbose_name="Кто лайкнул")
     has_balcony = models.NullBooleanField('Наличие балкона', db_index=True)
     active = models.BooleanField('Активно-ли объявление', db_index=True)
     construction_year = models.IntegerField(
@@ -56,8 +56,8 @@ class Flat(models.Model):
 
 
 class Claim(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Кто жаловался")
-    flat = models.ForeignKey(Flat, on_delete=models.CASCADE, verbose_name="Квартира, на которую жаловались")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name= "user_claim", verbose_name="Кто жаловался")
+    flat = models.ForeignKey(Flat, on_delete=models.CASCADE, related_name= "flat_claim", verbose_name="Квартира, на которую жаловались")
     text = models.TextField(blank=True, verbose_name="Текст жалобы")
 
 
