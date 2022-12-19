@@ -4,9 +4,8 @@ from django.db import migrations
 
 def is_new(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
-    for flat in Flat.objects.all():
-        flat.new_building = flat.construction_year > 2014
-        flat.save()
+    Flat.objects.filter(construction_year>2014).update(new_building=True)
+
 
 class Migration(migrations.Migration):
 

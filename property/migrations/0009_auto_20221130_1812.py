@@ -10,7 +10,7 @@ def phone_numbers(apps, schema_editor):
 
 def move_backward(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
-    for flat in Flat.objects.filter(owners_phonenumber='+70000000000'):
+    for flat in Flat.objects.filter(owners_phonenumber__contains='+7000'):
         flat.owner_pure_number = " "
         flat.save()
 

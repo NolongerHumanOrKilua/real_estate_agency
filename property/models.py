@@ -4,9 +4,6 @@ from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField
 
 class Flat(models.Model):
-    owner = models.CharField('ФИО владельца', max_length=200)
-    owners_phonenumber = models.CharField('Номер владельца', max_length=20)
-    owner_pure_number = PhoneNumberField(blank=True, region="RU")
     new_building = models.BooleanField('Новостройка', db_index=True, null=True)
     created_at = models.DateTimeField(
         'Когда создано объявление',
@@ -42,7 +39,7 @@ class Flat(models.Model):
         blank=True,
         db_index=True)
 
-    likes = models.ManyToManyField(User, related_name= "liked_by", verbose_name="Кто лайкнул")
+    likes = models.ManyToManyField(User, related_name= "liked_by", null=True, verbose_name="Кто лайкнул")
     has_balcony = models.NullBooleanField('Наличие балкона', db_index=True)
     active = models.BooleanField('Активно-ли объявление', db_index=True)
     construction_year = models.IntegerField(
@@ -62,7 +59,7 @@ class Claim(models.Model):
 
 
 class Owner(models.Model):
-    owner = models.CharField('ФИО владельца', max_length=200)
-    owners_phonenumber = models.CharField('Номер владельца', max_length=20)
-    owner_pure_number = PhoneNumberField(blank=True, region="RU")
-    flat = models.ManyToManyField(Flat, related_name="owned_by", verbose_name="Квартиры в собственности")        
+    name = models.CharField('ФИО владельца', max_length=200)
+    phonenumber = models.CharField('Номер владельца', max_length=20)
+    pure_number = PhoneNumberField(blank=True, region="RU")
+    flat = models.ManyToManyField(Flat, related_name="owned_by", null=True, verbose_name="Квартиры в собственности")        
