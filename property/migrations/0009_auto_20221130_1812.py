@@ -4,9 +4,8 @@ from django.db import migrations
 
 def phone_numbers(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
-    for flat in Flat.objects.all():
-        flat.owner_pure_number = flat.owners_phonenumber
-        flat.save()
+    Flat.objects.filter(owner_pure_number=" ").update(owner_pure_number = Flat.owners_phonenumber)
+
 
 def move_backward(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')

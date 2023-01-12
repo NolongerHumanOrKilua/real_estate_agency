@@ -39,7 +39,7 @@ class Flat(models.Model):
         blank=True,
         db_index=True)
 
-    likes = models.ManyToManyField(User, related_name= "liked_by", null=True, verbose_name="Кто лайкнул")
+    likes = models.ManyToManyField(User, related_name= "liked", null=True, verbose_name="Кто лайкнул")
     has_balcony = models.NullBooleanField('Наличие балкона', db_index=True)
     active = models.BooleanField('Активно-ли объявление', db_index=True)
     construction_year = models.IntegerField(
@@ -53,8 +53,8 @@ class Flat(models.Model):
 
 
 class Claim(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name= "user_claim", verbose_name="Кто жаловался")
-    flat = models.ForeignKey(Flat, on_delete=models.CASCADE, related_name= "flat_claim", verbose_name="Квартира, на которую жаловались")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name= "claims", verbose_name="Кто жаловался")
+    flat = models.ForeignKey(Flat, on_delete=models.CASCADE, related_name= "claims", verbose_name="Квартира, на которую жаловались")
     text = models.TextField(blank=True, verbose_name="Текст жалобы")
 
 
@@ -62,4 +62,4 @@ class Owner(models.Model):
     name = models.CharField('ФИО владельца', max_length=200)
     phonenumber = models.CharField('Номер владельца', max_length=20)
     pure_number = PhoneNumberField(blank=True, region="RU")
-    flat = models.ManyToManyField(Flat, related_name="owned_by", null=True, verbose_name="Квартиры в собственности")        
+    flat = models.ManyToManyField(Flat, related_name="owned", blank=True, verbose_name="Квартиры в собственности")        

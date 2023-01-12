@@ -6,7 +6,7 @@ def fill_owners(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
     Owner = apps.get_model('property', 'Owner')
     for flat in Flat.objects.all():
-        flat.owned_by.set(Owner.objects.filter(owner=flat.owner, owners_phonenumber=flat.owners_phonenumber))
+        flat.owned.set(Owner.objects.filter(owner=flat.owner, owners_phonenumber=flat.owners_phonenumber))
 
 
 class Migration(migrations.Migration):
