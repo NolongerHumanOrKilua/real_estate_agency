@@ -2,14 +2,14 @@
 
 from django.db import migrations
 
-def phone_numbers(apps, schema_editor):
+def pure_number(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
     Flat.objects.filter(owner_pure_number=" ").update(owner_pure_number = Flat.owners_phonenumber)
 
 
 def move_backward(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
-    for flat in Flat.objects.filter(owners_phonenumber__contains='+7000'):
+    for flat in Flat.objects.filter(owners_phonenumber__contains='+70'):
         flat.owner_pure_number = " "
         flat.save()
 
@@ -20,5 +20,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(phone_numbers, move_backward),
+        migrations.RunPython(pure_number, move_backward),
     ]
