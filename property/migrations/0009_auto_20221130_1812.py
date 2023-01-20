@@ -2,9 +2,9 @@
 
 from django.db import migrations
 
-def pure_number(apps, schema_editor):
+def add_pure_number(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
-    Flat.objects.filter(owner_pure_number=" ").update(owner_pure_number = Flat.owners_phonenumber)
+    Flat.objects.filter(owner_pure_number=None).update(owner_pure_number = Flat.owners_phonenumber)
 
 
 def move_backward(apps, schema_editor):
@@ -20,5 +20,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(pure_number, move_backward),
+        migrations.RunPython(add_pure_number, move_backward),
     ]

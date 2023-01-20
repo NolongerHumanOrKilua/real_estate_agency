@@ -39,7 +39,7 @@ class Flat(models.Model):
         blank=True,
         db_index=True)
 
-    likes = models.ManyToManyField(User, related_name= "users", null=True, verbose_name="Кто лайкнул")
+    likes = models.ManyToManyField(User, related_name= "likes", null=True, verbose_name="Кто лайкнул")
     has_balcony = models.NullBooleanField('Наличие балкона', db_index=True)
     active = models.BooleanField('Активно-ли объявление', db_index=True)
     construction_year = models.IntegerField(
